@@ -1,0 +1,29 @@
+---
+kind: pipeline
+name: default
+
+clone:
+  disable: true
+
+steps:
+  - name: clone
+    image: docker.io/alpine/git
+    commands:
+      - git clone https://github.com/bdebyl/docker-alpine-armgcc.git .
+      - git checkout $DRONE_COMMIT
+      - echo -n "0.1.$DRONE_BUILD_NUMBER" > .tags
+
+  - name: publish
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: bdebyl/alpine-armgcc
+
+---
+kind: signature
+hmac: 43981c11211fe609cb0f8bf392283a5567ab6882c64069148af3118994a283b0
+
+...
