@@ -21,9 +21,13 @@ steps:
       password:
         from_secret: docker_password
       repo: bdebyl/alpine-armgcc
+    when:
+      event:
+        exclude:
+          - cron
 
 ---
 kind: signature
-hmac: 43981c11211fe609cb0f8bf392283a5567ab6882c64069148af3118994a283b0
+hmac: edcb3ad971e5e33aec701c86a3de5bf3a954450360d64424ac62303c304e2b7f
 
 ...
